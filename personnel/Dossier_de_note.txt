@@ -1,5 +1,5 @@
-REF = variable
-OUT = variable
+REF = variable modifie en dehors de la méthode
+OUT = variable initialise le résultat dans une variable
 Instancier = créer un objet
 les constructeurs n'ont pas de type peut en avoir plusieurs si la signature est differente
 signature est l'entiereté de la déclaration d'une méthode nom + paramètre
