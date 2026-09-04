@@ -1,0 +1,6 @@
+REF = variable
+OUT = variable
+Instancier = créer un objet
+les constructeurs n'ont pas de type peut en avoir plusieurs si la signature est differente
+signature est l'entiereté de la déclaration d'une méthode nom + paramètre
+this sert a chercher dans l'objet, classe cherche la valeure

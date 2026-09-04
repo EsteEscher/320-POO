@@ -24,7 +24,7 @@ namespace Drone
             int batterie2 = 50;
 
             //Boucle pour le faire avancer
-            while (batterie >= 2)
+            while (batterie >= 2 || batterie2 >= 2)
             {
                 posX++;
                 posX1++;
