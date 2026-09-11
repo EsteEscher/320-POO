@@ -9,7 +9,7 @@ namespace Drones.Helpers
     internal static class RandomHelpers
     {
         private static Random _alea = new Random();
-        public static int Generating(int max)
+        public static int GeneratingFlyFluc(int max)
         {
             return _alea.Next(max);
         }

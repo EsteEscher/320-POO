@@ -17,7 +17,7 @@ namespace Drones
             this._x = x;
             this._y = y;
             this._name = name;
-            _charge = RandomHelpers.Generating(1000); // La _charge initiale de la batterie est choisie aléatoirement
+            _charge = RandomHelpers.GeneratingFlyFluc(Config.MAX_LOAD); // La _charge initiale de la batterie est choisie aléatoirement
         }
 
         #region ================ Modelisation du drone et de son comportement ================
@@ -26,9 +26,9 @@ namespace Drones
         // que 'interval' millisecondes se sont écoulées
         public void Update(int interval)
         {
-            if (_charge <= 0) return;                     // S'il n'a plus de _charge, il ne peut plus bouger
+            if (_charge <= 0) return;                   // S'il n'a plus de _charge, il ne peut plus bouger
             _x += 2;                                    // Il s'est déplacé de 2 pixels vers la droite
-            _y += RandomHelpers.Generating(5) - 2;                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
+            _y += RandomHelpers.GeneratingFlyFluc(5) - 2;      // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
             _charge--;                                  // Il a dépensé de l'énergie
         }
 

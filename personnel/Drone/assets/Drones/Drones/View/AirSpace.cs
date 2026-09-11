@@ -1,3 +1,5 @@
+using Drones.Helpers;
+
 namespace Drones
 {
     // La classe AirSpace représente le territoire au dessus duquel les drones peuvent voler
@@ -6,8 +8,8 @@ namespace Drones
 
     public partial class AirSpace : Form
     {
-        public static readonly int WIDTH = 1200;        // Dimensions of the airspace
-        public static readonly int HEIGHT = 600;
+        //public static readonly int WIDTH = Config.AIRSPACE_WIDTH;        // Dimensions of the airspace
+        //public static readonly int HEIGHT = Config.AIRSPACE_HEIGHT;
 
         // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
         private List<Drone> fleet;
@@ -55,6 +57,11 @@ namespace Drones
         {
             this.Update(ticker.Interval);
             this.Render();
+        }
+
+        private void AirSpace_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
