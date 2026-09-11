@@ -34,7 +34,13 @@ namespace Drone
         }
         public void changeState()
         {
-            if (_batterie < 0) return;
+            if (_batterie < 2)
+            {
+                Console.Clear();
+                Console.SetCursorPosition(_posx, _posy);
+                Console.Write("x---x");
+                return;
+            }
             _posx++;
             _batterie -= 2;
         }

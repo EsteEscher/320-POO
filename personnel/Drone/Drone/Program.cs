@@ -12,19 +12,42 @@ namespace Drone
         static void Main(string[] args)
         {
             //Variable
-            Drone drone1 = new Drone(10, 6, 76);
-            Drone drone2 = new Drone(13, 4, 66);
+            List<Drone> drones = new List<Drone>
+            {
+                new Drone(10, 6, 76),
+                new Drone(13, 4, 66)
+            };
 
+            int count = 0;
 
-            while (drone1.Batterie > 0 || drone2.Batterie > 0)
+            while (OneIsAlive(drones))
             {
                 Console.Clear();
-                drone1.changeState();
-                drone1.draw();
-                drone2.changeState();
-                drone2.draw();
-                Thread.Sleep(100);
+
+                foreach (Drone drone in drones)
+                {
+                    drone.changeState();
+                    drone.draw();
+                }
+                Thread.Sleep(150);
+                count++;
+
+                if (count == 10)
+                {
+                    drones.Add(new Drone(12, 4, 50));
+                }
             }
+        }
+        static bool OneIsAlive(List<Drone> drones)
+        {
+            foreach (Drone drone in drones) 
+            {
+                if (drone.Batterie > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
