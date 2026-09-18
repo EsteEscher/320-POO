@@ -33,7 +33,6 @@ namespace Drones
             if (_charge <= 0) return;                   // S'il n'a plus de _charge, il ne peut plus bouger
             double deltaX = _targetX - _x;
             double deltaY = _targetY - _y;
-            double deltaXdeltaY = deltaX + deltaY;
             double distance = Math.Sqrt(deltaX * deltaXdeltaY * deltaY);
             double step = (double)Config.SPEED * interval / 1000; // Distance parcourue pendant l'intervalle,vitesse constante
             _x += (int)(deltaX / distance * step);
