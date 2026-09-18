@@ -12,6 +12,9 @@ namespace Drones
         private int _y;                               // Position en Y depuis le haut de l'espace aérien
         private int _targetX;                         // Objectif en X vers lequel le drone se dirige
         private int _targetY;                         // Objectif en Y vers lequel le drone se dirige
+        public State state = State.ROAMING;
+
+        public enum State { CRASH, LOW_BATTERY, LOADING, ROAMING }
 
         // Constructeur
         public Drone(int x, int y, string name)
@@ -22,8 +25,12 @@ namespace Drones
             _charge = RandomHelpers.Next(Config.MAX_LOAD); // La charge initiale de la batterie est choisie aléatoirement
 
             // Le drone se fixe un objectif aléatoire quelque part dans l'espace aérien
-            _targetX = RandomHelpers.Next(Config.AIRSPACE_WIDTH);
-            _targetY = RandomHelpers.Next(Config.AIRSPACE_HEIGHT);
+            (_targetX, _targetY) = Newtarg();
+        }
+
+        private (int, int) Newtarg()
+        {
+            return (RandomHelpers.Next(Config.AIRSPACE_WIDTH), RandomHelpers.Next(Config.AIRSPACE_HEIGHT));
         }
 
         #region ================ Modelisation du drone et de son comportement ================
@@ -40,14 +47,16 @@ namespace Drones
             {
                 _x = _targetX;
                 _y = _targetY;
+                (_targetX, _targetY) = Newtarg();
+
                 return;                                   // Le drone s'immobilise
             }
 
             // Déplacement le long du vecteur unitaire vers l'objectif, à la vitesse du drone
             double dx = _targetX - _x;
             double dy = _targetY - _y;
-            _x += (int)(dx / distance * Config.SPEED * interval/1000);
-            _y += (int)(dy / distance * Config.SPEED * interval/1000);
+            _x += (int)(dx / distance * Config.SPEED * interval / 1000);
+            _y += (int)(dy / distance * Config.SPEED * interval / 1000);
             _charge--;                                    // Il a dépensé de l'énergie
         }
 
@@ -55,14 +64,14 @@ namespace Drones
 
         #region  ================ Rendu graphique  ================
 
-        private const int SIZE = 5;
+        private const int SIZE = 50;
         private Pen _droneBrush = new Pen(new SolidBrush(Color.Purple), 3);
 
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            drawingSpace.Graphics.DrawImage(_charge > 0 ? Resources.drone : Resources.boom, _x-SIZE/2, _y-SIZE/2, SIZE, SIZE);
-            drawingSpace.Graphics.DrawString($"{this}", TextHelpers.drawFont, TextHelpers.writingBrush, _x-SIZE/2, _y-SIZE);
+            drawingSpace.Graphics.DrawImage(_charge > 0 ? Resources.drone : Resources.boom, _x - SIZE / 2, _y - SIZE / 2, SIZE, SIZE);
+            drawingSpace.Graphics.DrawString($"{this}", TextHelpers.drawFont, TextHelpers.writingBrush, _x - SIZE / 2, _y - SIZE);
         }
 
         // De manière textuelle

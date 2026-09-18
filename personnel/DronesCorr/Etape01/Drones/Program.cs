@@ -15,7 +15,7 @@ namespace Drones
             // Cr�ation de la flotte de drones
             List<Drone> fleet= new List<Drone>();
             fleet.Add(new Drone(Config.AIRSPACE_WIDTH / 2, Config.AIRSPACE_HEIGHT / 2, "Joe"));
-            for(int i = 0; i < 1000; i++)
+            for(int i = 0; i < 10; i++)
                 fleet.Add(new Drone(Config.AIRSPACE_WIDTH / 2, Config.AIRSPACE_HEIGHT / 2, "Le vatican" + i));
 
             // D�marrage
