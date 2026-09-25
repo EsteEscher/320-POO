@@ -14,12 +14,15 @@ namespace Drones
 
             // Cr�ation de la flotte de drones
             List<Drone> fleet= new List<Drone>();
-            fleet.Add(new Drone(Config.AIRSPACE_WIDTH / 2, Config.AIRSPACE_HEIGHT / 2, "Joe"));
             for(int i = 0; i < 10; i++)
-                fleet.Add(new Drone(Config.AIRSPACE_WIDTH / 2, Config.AIRSPACE_HEIGHT / 2, "Le vatican" + i));
+                fleet.Add(new Drone(Config.AIRSPACE_WIDTH / 2, Config.AIRSPACE_HEIGHT / 2, "Le Joe" + i));
+
+            List<Charger> charge = new List<Charger>();
+            for (int i = 0; i < 1; i++)
+                charge.Add(new Charger(Config.AIRSPACE_WIDTH / 2, Config.AIRSPACE_HEIGHT / 2));
 
             // D�marrage
-            Application.Run(new AirSpace(fleet));
+            Application.Run(new AirSpace(fleet, charge));
         }
     }
 }

@@ -39,7 +39,11 @@ namespace Drones
         // que 'interval' millisecondes se sont écoulées
         public void Update(int interval)
         {
-            if (_charge <= 0) return;                     // S'il n'a plus de charge, il ne peut plus bouger
+            if (_charge <= 0)
+            {
+                state = State.CRASH;
+                return;
+            }                     // S'il n'a plus de charge, il ne peut plus bouger
 
             double distance = MathHelpers.Distance(_x, _y, _targetX, _targetY);
 
