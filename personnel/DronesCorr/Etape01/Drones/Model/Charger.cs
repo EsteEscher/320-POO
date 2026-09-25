@@ -30,7 +30,7 @@ namespace Drones
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            Pen pen = new Pen(Color.Black, 3);
+            Pen pen = new Pen(Color.Black, 21);
             drawingSpace.Graphics.DrawEllipse(pen, X, Y, SIZEELLIPSE, SIZEELLIPSE);
 
         }

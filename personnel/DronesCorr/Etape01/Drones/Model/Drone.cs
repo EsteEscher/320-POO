@@ -39,6 +39,13 @@ namespace Drones
         // que 'interval' millisecondes se sont écoulées
         public void Update(int interval)
         {
+            if (_charge < 40)
+            {
+                state = State.LOW_BATTERY;
+                _targetX = (Config.AIRSPACE_WIDTH / 2);
+                _targetY = (Config.AIRSPACE_HEIGHT / 2);
+                return;
+            }
             if (_charge <= 0)
             {
                 state = State.CRASH;
