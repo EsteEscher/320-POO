@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
 namespace Drones
 {
     // La classe AirSpace repr�sente le territoire au dessus duquel les drones peuvent voler
@@ -9,13 +13,15 @@ namespace Drones
         // La flotte est l'ensemble des drones qui �voluent dans notre espace a�rien
         private List<Drone> _fleet;
         private List<Charger> _charge;
+        private List<Pizzeria> _pizzi;
+        private List<Client> _client;
 
 
         private BufferedGraphicsContext _currentContext;
         private BufferedGraphics _airspace;
 
         // Initialisation de l'espace a�rien avec un certain nombre de drones
-        public AirSpace(List<Drone> fleet, List<Charger> charge)
+        public AirSpace(List<Drone> fleet, List<Charger> charge, List<Pizzeria> Pizzi, List<Client> cliente)
         {
             InitializeComponent();
             this.ClientSize = new Size(Config.AIRSPACE_WIDTH, Config.AIRSPACE_HEIGHT);
@@ -26,6 +32,8 @@ namespace Drones
             _airspace = _currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
             _fleet = fleet;
             _charge = charge;
+            _pizzi = Pizzi;
+            _client = cliente;
         }
 
         // Affichage de la situation actuelle
@@ -43,6 +51,16 @@ namespace Drones
                 charge.Render(_airspace);
             }
 
+            foreach (Pizzeria Pizzi in _pizzi)
+            {
+                Pizzi.Render(_airspace);
+            }
+
+            foreach (Client cliente in _client)
+            {
+                cliente.Render(_airspace);
+            }
+
             _airspace.Render();
         }
 
@@ -51,7 +69,7 @@ namespace Drones
         {
             foreach (Drone drone in _fleet)
             {
-                drone.Update(interval);
+                drone.Update(interval, _charge);
             }
         }
 

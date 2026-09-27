@@ -1,5 +1,6 @@
 ﻿using Drones.Helpers;
 using Drones.Properties;
+using System.Collections.Generic;
 
 namespace Drones
 {
@@ -37,19 +38,20 @@ namespace Drones
 
         // Cette méthode calcule le nouvel état dans lequel le drone se trouve après
         // que 'interval' millisecondes se sont écoulées
-        public void Update(int interval)
+        public void Update(int interval, List<Charger> charge)
         {
-            if (_charge < 40)
+            if (_charge < 400)
             {
                 state = State.LOW_BATTERY;
-                _targetX = (Config.AIRSPACE_WIDTH / 2);
-                _targetY = (Config.AIRSPACE_HEIGHT / 2);
-                return;
+                _targetX = charge[0].X;
+                _targetY = charge[0].Y;
+
             }
             if (_charge <= 0)
             {
                 state = State.CRASH;
-                return;
+
+
             }                     // S'il n'a plus de charge, il ne peut plus bouger
 
             double distance = MathHelpers.Distance(_x, _y, _targetX, _targetY);
@@ -58,10 +60,27 @@ namespace Drones
             {
                 _x = _targetX;
                 _y = _targetY;
-                (_targetX, _targetY) = Newtarg();
+                if (state == State.LOW_BATTERY)
+                {
+                    state = State.LOADING;
+                }
+                if (state == State.LOADING)
+                {
+                    _charge += 10;
+                    if (_charge > 1000)
+                        _charge = 1000;
+                    if (_charge >= 1000)
+                        state = State.ROAMING;
+                }
 
-                return;                                   // Le drone s'immobilise
+                else
+                    (_targetX, _targetY) = Newtarg();
+
+                return;
+
+                                  // Le drone s'immobilise
             }
+
 
             // Déplacement le long du vecteur unitaire vers l'objectif, à la vitesse du drone
             double dx = _targetX - _x;
@@ -69,6 +88,7 @@ namespace Drones
             _x += (int)(dx / distance * Config.SPEED * interval / 1000);
             _y += (int)(dy / distance * Config.SPEED * interval / 1000);
             _charge--;                                    // Il a dépensé de l'énergie
+
         }
 
         #endregion

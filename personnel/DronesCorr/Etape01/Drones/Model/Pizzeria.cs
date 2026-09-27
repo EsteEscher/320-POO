@@ -10,13 +10,13 @@ using System.Xml.Linq;
 
 namespace Drones
 {
-    public class Charger
+    public class Pizzeria
     {
         private int _x;
         private int _y;
-        private const int SIZEELLIPSE = 20;
+        private const int SIZEELLIPSE = 50;
 
-        public Charger(int x, int y)
+        public Pizzeria(int x, int y)
         {
             X = x;
             Y = y;
@@ -24,14 +24,18 @@ namespace Drones
 
         public int X { get => _x; set => _x = value; }
         public int Y { get => _y; set => _y = value; }
+        private (int, int) Newtarg()
+        {
+            return (RandomHelpers.Next(Config.AIRSPACE_WIDTH), RandomHelpers.Next(Config.AIRSPACE_HEIGHT));
+        }
 
         #region  ================ Rendu graphique  ================
 
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            Pen pen = new Pen(Color.Black, 3);
-            drawingSpace.Graphics.DrawEllipse(pen, X - SIZEELLIPSE / 2, Y - SIZEELLIPSE / 2, SIZEELLIPSE, SIZEELLIPSE);
+            Pen pen = new Pen(Color.Gray, 3);
+            drawingSpace.Graphics.DrawRectangle(pen, X - SIZEELLIPSE / 2, Y - SIZEELLIPSE / 2, SIZEELLIPSE, SIZEELLIPSE);
 
         }
         #endregion

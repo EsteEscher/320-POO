@@ -1,3 +1,5 @@
+using Drones.Helpers;
+
 namespace Drones
 {
     internal static class Program
@@ -14,15 +16,23 @@ namespace Drones
 
             // Cr�ation de la flotte de drones
             List<Drone> fleet= new List<Drone>();
-            for(int i = 0; i < 10; i++)
+            for(int i = 0; i < 1; i++)
                 fleet.Add(new Drone(Config.AIRSPACE_WIDTH / 2, Config.AIRSPACE_HEIGHT / 2, "Le Joe" + i));
 
             List<Charger> charge = new List<Charger>();
             for (int i = 0; i < 1; i++)
                 charge.Add(new Charger(Config.AIRSPACE_WIDTH / 2, Config.AIRSPACE_HEIGHT / 2));
 
+            List<Pizzeria> Pizzi = new List<Pizzeria>();
+            for (int i = 0; i < 5; i++)
+                Pizzi.Add(new Pizzeria(RandomHelpers.Next(Config.AIRSPACE_WIDTH), RandomHelpers.Next(Config.AIRSPACE_HEIGHT)));
+
+            List<Client> cliente = new List<Client>();
+            for (int i = 0; i < 20; i++)
+                cliente.Add(new Client(RandomHelpers.Next(Config.AIRSPACE_WIDTH), RandomHelpers.Next(Config.AIRSPACE_HEIGHT)));
+
             // D�marrage
-            Application.Run(new AirSpace(fleet, charge));
+            Application.Run(new AirSpace(fleet, charge, Pizzi, cliente));
         }
     }
 }
