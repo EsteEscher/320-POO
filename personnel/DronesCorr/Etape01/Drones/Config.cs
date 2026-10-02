@@ -1,7 +1,7 @@
 namespace Drones
 {
     // Constantes de configuration de la simulation
-    internal static class Config
+    public static class Config
     {
         public const int MAX_LOAD = 1000;                 // Charge maximum de la batterie d'un drone
 
