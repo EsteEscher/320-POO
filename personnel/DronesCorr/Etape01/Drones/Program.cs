@@ -24,8 +24,7 @@ namespace Drones
                 charge.Add(new Charger(Config.AIRSPACE_WIDTH / 2, Config.AIRSPACE_HEIGHT / 2));
 
             List<Pizzeria> Pizzi = new List<Pizzeria>();
-            for (int i = 0; i < 5; i++)
-                Pizzi.Add(new Pizzeria(RandomHelpers.Next(Config.AIRSPACE_WIDTH), RandomHelpers.Next(Config.AIRSPACE_HEIGHT)));
+            Pizzeria.RegisterPizzeria(Pizzi);
 
             List<Client> cliente = new List<Client>();
             for (int i = 0; i < 20; i++)

@@ -24,10 +24,6 @@ namespace Drones
 
         public int X { get => _x; set => _x = value; }
         public int Y { get => _y; set => _y = value; }
-        private (int, int) Newtarg()
-        {
-            return (RandomHelpers.Next(Config.AIRSPACE_WIDTH), RandomHelpers.Next(Config.AIRSPACE_HEIGHT));
-        }
 
         #region  ================ Rendu graphique  ================
 
@@ -39,5 +35,34 @@ namespace Drones
 
         }
         #endregion
+
+
+        public static void RegisterPizzeria(List<Pizzeria> Pizzi)
+        {
+            
+
+            for (int i = 0; i < 5; i++)
+            {
+                int x = RandomHelpers.Next(50, Config.AIRSPACE_WIDTH - SIZEELLIPSE);
+                int y = RandomHelpers.Next(50, Config.AIRSPACE_HEIGHT - SIZEELLIPSE);
+
+
+                try
+                {
+                    foreach (Pizzeria p in Pizzi)
+                    {
+                        if (x + SIZEELLIPSE / 2 >= p.X - SIZEELLIPSE / 2 && y + SIZEELLIPSE / 2 >= p.Y - SIZEELLIPSE / 2 && x - SIZEELLIPSE / 2 >= p.X - SIZEELLIPSE / 2 && y - SIZEELLIPSE / 2 >= p.Y - SIZEELLIPSE / 2 )
+                        {
+
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+                Pizzi.Add(new Pizzeria(x, y));
+            }
+        }
     }
 }
